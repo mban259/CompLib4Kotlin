@@ -1,35 +1,22 @@
 package mathematics
 
-class ModInt(_num: Long) {
+class ModInt(_num: Number) : Number() {
     companion object {
-        const val mod = 1000000007L
+        const val mod: Long = 1000000007L
     }
 
-    private val num: Long = if (_num < 0) (_num % mod) + mod else _num % mod
-
-    constructor(i: Int) : this(i.toLong())
-
-    operator fun plus(right: ModInt) = ModInt(num + right.toLong())
-    operator fun plus(right: Long) = ModInt(num + (right % mod))
-    operator fun plus(right: Int) = ModInt(num + (right % mod))
-
-    operator fun minus(right: ModInt) = ModInt(num - right.num)
-    operator fun minus(right: Long) = ModInt(num - (right % mod))
-    operator fun minus(right: Int) = ModInt(num - (right % mod))
-
-    operator fun times(right: ModInt) = ModInt(num * right.num)
-    operator fun times(right: Long) = ModInt(num * (right % mod))
-    operator fun times(right: Int) = ModInt(num * (right % mod))
+    private val num: Long = if (_num.toLong() < 0) (_num.toLong() % mod) + mod else _num.toLong() % mod
+    operator fun plus(right: Number) = ModInt(num + (right.toLong() % mod))
+    operator fun minus(right: Number) = ModInt(num - (right.toLong() % mod))
+    operator fun times(right: Number) = ModInt(num * (right.toLong() % mod))
 
     // modが素数の時のみ
-    operator fun div(right: ModInt) = this * right.inverse()
-    operator fun div(right: Long) = this / ModInt(right)
-    operator fun div(right: Int) = this / ModInt(right)
+    operator fun div(right: Number) = this * ModInt(right).inverse()
 
-    fun power(n: Long): ModInt {
+    fun power(n: Number): ModInt {
         var a = this
         var result = ModInt(1)
-        var tmp = n
+        var tmp = n.toLong()
         while (tmp > 0) {
             if (tmp % 2 == 1L) {
                 result *= a
@@ -40,15 +27,17 @@ class ModInt(_num: Long) {
         return result
     }
 
-    // this^nを計算
-    fun power(n: Int) = power(n.toLong())
-
     // modが素数のときのみ 逆元
     fun inverse(): ModInt {
         return power(mod - 2L)
     }
 
     override fun toString() = num.toString()
-    fun toInt() = num.toInt()
-    fun toLong() = num
+    override fun toInt() = num.toInt()
+    override fun toLong() = num
+    override fun toByte() = num.toByte()
+    override fun toChar() = num.toChar()
+    override fun toDouble() = num.toDouble()
+    override fun toFloat() = num.toFloat()
+    override fun toShort() = num.toShort()
 }
