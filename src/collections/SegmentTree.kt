@@ -1,28 +1,19 @@
 package collections
 
-typealias Num = Int
-
 // 演算、(左)単位元
-class SegmentTree {
+class SegmentTree<T>(private val op: (T, T) -> T, private val id: T) {
     companion object {
         // 制約に合うように適宜変えて下さい
         const val size = 1 shl 21
-
-        // 単位元
-        const val id: Num = 0
-
-        // 演算
-        fun op(left: Num, right: Num): Num {
-            return left + right
-        }
     }
 
-    private val array = Array(size * 2) { id }
+    @Suppress("UNCHECKED_CAST")
+    private val array = Array<Any?>(size * 2) { id } as Array<T>
 
     operator fun get(i: Int) = array[i + size]
-    operator fun set(i: Int, n: Num) = update(i, n)
+    operator fun set(i: Int, n: T) = update(i, n)
 
-    fun update(i: Int, n: Num) {
+    fun update(i: Int, n: T) {
         var index = i + size
         array[index] = n
         while (index > 1) {
@@ -31,7 +22,7 @@ class SegmentTree {
         }
     }
 
-    private fun query(left: Int, right: Int, k: Int, l: Int, r: Int): Num {
+    private fun query(left: Int, right: Int, k: Int, l: Int, r: Int): T {
         if (left <= l && r <= right) {
             return array[k]
         }

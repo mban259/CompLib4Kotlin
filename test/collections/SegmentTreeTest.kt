@@ -7,7 +7,7 @@ import kotlin.test.assertEquals
 class SegmentTreeTest {
     @Test
     fun randomTest() {
-        val st = SegmentTree()
+        val st = SegmentTree<Int>({ l, r -> l + r }, 0)
         val array = Array(1000) { 0 }
         val random = Random(0)
         for (i in 1..100000) {
@@ -39,7 +39,7 @@ class SegmentTreeTest {
 
     @Test
     fun test1() {
-        val st = SegmentTree()
+        val st = SegmentTree({ l, r -> l + r }, 0)
         st[0] = 4
         st[1] = 3
         st[2] = 2
