@@ -9,18 +9,24 @@ typealias C = Int
 // v 頂点の数
 class MaxFlow(private val v: Int) {
 
+    // 辺の集合 g[i] iから出る辺
     private val g = Array<ArrayList<Edge>>(v) { arrayListOf() }
+
 
     private val lv = Array<Int>(v) { 0 }
 
+    // 有向辺を追加
     fun addDirectedEdge(from: Int, to: Int, cap: C) {
         addEdge(from, to, cap, 0)
     }
 
+    // 無向辺を追加
     fun addUndirectedEdge(from: Int, to: Int, cap: C) {
         addEdge(from, to, cap, cap)
     }
 
+    // 辺を追加
+    // f 頂点1, t 頂点2, c1 f->tのキャパシティ, c2 t->fのキャパシティ
     private fun addEdge(f: Int, t: Int, c1: C, c2: C) {
         val a = Edge(t, c1)
         val b = Edge(f, c2)
@@ -29,6 +35,7 @@ class MaxFlow(private val v: Int) {
         g[t].add(b)
     }
 
+    // 最大流問題を解く
     fun execute(src: Int, sink: Int, f: C = C.MAX_VALUE): C {
         var flow: C = 0
         var tmp = f
@@ -48,6 +55,7 @@ class MaxFlow(private val v: Int) {
         return flow
     }
 
+    // sからの距離を求める 0ならたどり着けない
     fun bfs(s: Int) {
         for (i in 0 until v) {
             lv[i] = 0
@@ -66,6 +74,8 @@ class MaxFlow(private val v: Int) {
         }
     }
 
+    // pos 現在地, to ゴール, f posに流れてきた分
+    // return toに流せる分
     private fun dfs(pos: Int, to: Int, f: C): C {
         if (pos == to) return f
         var ret: C = 0
@@ -74,8 +84,11 @@ class MaxFlow(private val v: Int) {
             g[pos].forEach {
                 if (it.cap <= 0 || lv[pos] >= lv[it.to]) return@forEach
                 val df = dfs(it.to, to, min(tmp, it.cap))
+
+                // 押し返す
                 it.cap -= df
                 it.rev!!.cap += df
+
                 ret += df
                 tmp -= df
                 if (tmp <= 0) return@run
@@ -84,6 +97,8 @@ class MaxFlow(private val v: Int) {
         return ret
     }
 
+    // 辺
+    // to 行き先, cap キャパシティ
     class Edge(val to: Int, var cap: C) {
 
         companion object {
@@ -93,6 +108,7 @@ class MaxFlow(private val v: Int) {
             }
         }
 
+        // 逆向きの辺
         var rev: Edge? = null
     }
 }
