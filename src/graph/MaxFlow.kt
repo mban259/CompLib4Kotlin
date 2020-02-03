@@ -24,7 +24,7 @@ class MaxFlow(private val v: Int) {
 
     private fun addEdge(f: Int, t: Int, c1: C, c2: C) {
         val a = Edge(t, c1)
-        val b = Edge(t, c2)
+        val b = Edge(f, c2)
         Edge.link(a, b)
         g[f].add(a)
         g[t].add(b)
