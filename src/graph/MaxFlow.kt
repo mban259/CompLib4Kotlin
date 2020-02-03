@@ -12,7 +12,6 @@ class MaxFlow(private val v: Int) {
     private val g = Array<ArrayList<Edge>>(v) { arrayListOf() }
 
     private val lv = Array<Int>(v) { 0 }
-    private val iter = Array<Int>(v) { 0 }
 
     fun addDirectedEdge(from: Int, to: Int, cap: C) {
         addEdge(from, to, cap, 0)
@@ -36,9 +35,6 @@ class MaxFlow(private val v: Int) {
         while (tmp > 0) {
             bfs(src)
             if (lv[sink] == 0) return flow
-            for (i in 0 until v) {
-                iter[i] = 0
-            }
             while (true) {
                 val df = dfs(src, sink, tmp)
                 if (df <= 0) {
@@ -74,23 +70,16 @@ class MaxFlow(private val v: Int) {
         if (pos == to) return f
         var ret: C = 0
         var tmp = f
-        while (iter[pos] < g[pos].size) {
-            val e = g[pos][iter[pos]]
-            if (e.cap <= 0 || lv[pos] >= lv[e.to]) {
-                iter[pos]++
-                continue
+        run {
+            g[pos].forEach {
+                if (it.cap <= 0 || lv[pos] >= lv[it.to]) return@forEach
+                val df = dfs(it.to, to, min(tmp, it.cap))
+                it.cap -= df
+                it.rev!!.cap += df
+                ret += df
+                tmp -= df
+                if (tmp <= 0) return@run
             }
-            val df = dfs(e.to, to, min(tmp, e.cap))
-            if (df <= 0) {
-                iter[pos]++
-                continue
-            }
-            e.cap -= df
-            e.rev!!.cap += df
-            ret += df
-            tmp -= df
-            if (tmp == 0) break
-            iter[pos]++
         }
         return ret
     }
