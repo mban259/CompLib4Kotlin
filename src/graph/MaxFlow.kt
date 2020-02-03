@@ -2,7 +2,6 @@ package graph
 
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.math.min
 
 typealias C = Int
 
@@ -85,7 +84,7 @@ class MaxFlow(private val v: Int) {
             g[pos].forEach {
                 // 通れない or pos->toのパスじゃないならcontinue
                 if (it.cap <= 0 || lv[pos] >= lv[it.to]) return@forEach
-                val df = dfs(it.to, to, min(tmp, it.cap))
+                val df = dfs(it.to, to, Math.min(tmp, it.cap))
 
                 // 押し返す
                 it.cap -= df
