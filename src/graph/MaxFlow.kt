@@ -13,7 +13,7 @@ class MaxFlow(private val v: Int) {
     private val g = Array<ArrayList<Edge>>(v) { arrayListOf() }
 
 
-    private val lv = Array<Int>(v) { 0 }
+    private val lv = Array(v) { 0 }
 
     // 有向辺を追加
     fun addDirectedEdge(from: Int, to: Int, cap: C) {
