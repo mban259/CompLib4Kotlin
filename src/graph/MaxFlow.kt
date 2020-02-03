@@ -36,6 +36,7 @@ class MaxFlow(private val v: Int) {
     }
 
     // 最大流問題を解く
+    // src から sinkまで f srcに流す量
     fun execute(src: Int, sink: Int, f: C = C.MAX_VALUE): C {
         var flow: C = 0
         var tmp = f
