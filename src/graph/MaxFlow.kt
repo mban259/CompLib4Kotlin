@@ -56,7 +56,7 @@ class MaxFlow(private val v: Int) {
     }
 
     // sからの距離を求める 0ならたどり着けない
-    fun bfs(s: Int) {
+    private fun bfs(s: Int) {
         for (i in 0 until v) {
             lv[i] = 0
         }
