@@ -82,6 +82,7 @@ class MaxFlow(private val v: Int) {
         var tmp = f
         run {
             g[pos].forEach {
+                // 通れない or pos->toのパスじゃないならcontinue
                 if (it.cap <= 0 || lv[pos] >= lv[it.to]) return@forEach
                 val df = dfs(it.to, to, min(tmp, it.cap))
 
