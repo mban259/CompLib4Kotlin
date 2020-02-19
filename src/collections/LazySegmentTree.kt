@@ -1,5 +1,9 @@
 package collections
 
+// Copyright (c) 2020 mban
+// Released under the MIT license.
+// https://opensource.org/licenses/MIT
+
 class LazySegmentTree<T>(
     private val op: (T, T) -> T, // 演算
     private val id: T, // (T,op)の単位元

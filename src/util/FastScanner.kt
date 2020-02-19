@@ -4,6 +4,10 @@ import java.io.InputStream
 import java.lang.NumberFormatException
 import java.lang.StringBuilder
 
+// Copyright (c) 2020 mban
+// Released under the MIT license.
+// https://opensource.org/licenses/MIT
+
 class FastScanner {
     companion object {
         val input: InputStream = System.`in`

@@ -1,5 +1,9 @@
 package mathematics
 
+// Copyright (c) 2020 mban
+// Released under the MIT license.
+// https://opensource.org/licenses/MIT
+
 typealias Num = Long
 
 class Matrix(private val r: Int, private val c: Int) {

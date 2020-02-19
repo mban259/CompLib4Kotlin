@@ -1,5 +1,9 @@
 package collections
 
+// Copyright (c) 2020 mban
+// Released under the MIT license.
+// https://opensource.org/licenses/MIT
+
 // 演算、(左)単位元
 class SegmentTree<T>(private val op: (T, T) -> T, private val id: T) {
     companion object {

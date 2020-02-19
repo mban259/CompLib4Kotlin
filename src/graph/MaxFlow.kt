@@ -3,6 +3,10 @@ package graph
 import java.util.*
 import kotlin.collections.ArrayList
 
+// Copyright (c) 2020 mban
+// Released under the MIT license.
+// https://opensource.org/licenses/MIT
+
 typealias C = Int
 
 // v 頂点の数

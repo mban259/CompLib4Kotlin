@@ -1,3 +1,7 @@
+// Copyright (c) 2020 mban
+// Released under the MIT license.
+// https://opensource.org/licenses/MIT
+
 package graph
 
 import org.junit.jupiter.api.Test

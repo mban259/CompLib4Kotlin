@@ -1,5 +1,9 @@
 package mathematics
 
+// Copyright (c) 2020 mban
+// Released under the MIT license.
+// https://opensource.org/licenses/MIT
+
 class ModInt(_num: Number) : Number() {
     companion object {
         const val mod: Long = 1000000007L
